@@ -77,6 +77,26 @@
                 </div>
 
                 <div class="mb-3 row">
+                    <label for="type_id" class="col-form-label col-2">Type</label>
+                    <div class="col-10">
+                        <select class="form-select" id="type_id" name="type_id">
+                            <option>Select a type</option>
+                            @foreach ($types as $type)
+                                <option
+                                    value="{{ $type->id }}"
+                                    {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}
+                                >
+                                    {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('type_id')
+                            <span class="d-block mt-2 text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
                     <label for="img" class="form-label">
                         Preview image*
                     </label>

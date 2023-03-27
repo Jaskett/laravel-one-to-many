@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\PageController;
 
 /*

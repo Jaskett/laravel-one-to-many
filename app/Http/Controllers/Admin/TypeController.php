@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
+// Models
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+
+// Helpers
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -15,7 +20,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.types.index', [
+            'types'=> Type::all()
+        ]);
     }
 
     /**
@@ -25,7 +32,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -36,7 +43,12 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        //
+        $data = $request->validate();
+        $data['slug'] = Str::slug($data['name']);
+
+        $newType = Type::create($data);
+
+        return redirect()->route('admin.types.show', $newType->id)->with('success', 'New type created correctly');
     }
 
     /**
@@ -47,7 +59,9 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
+        return view('admin.types.show', [
+            'type'=>$type
+        ]);
     }
 
     /**
@@ -58,7 +72,9 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', [
+            'type'=> $type
+        ]);
     }
 
     /**
@@ -70,7 +86,12 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['name']);
+
+        $type->update($data);
+
+        return redirect()->route('admin.types.show', $type->id)->with('success', 'Type updated correctly!');
     }
 
     /**
@@ -81,6 +102,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        
+        return redirect()->route('admin.types.index')->with('success', 'Type deleted correctly!');
     }
 }

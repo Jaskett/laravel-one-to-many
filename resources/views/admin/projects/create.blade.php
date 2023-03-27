@@ -93,6 +93,28 @@
                     </div>
                 </div>
 
+                <div class="mb-3 row">
+                    <label for="type_id" class="col-form-label col-2">
+                        Type
+                    </label>
+                    <div class="col-10">
+                        <select class="form-select" id="type_id" name="type_id">
+                            <option>Select a type</option>
+                            @foreach ($types as $type)
+                                <option
+                                    value="{{ $type->id }}"
+                                    {{ old('type->id') == $type->id ? 'selected' : '' }}
+                                >
+                                    {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('type_id')
+                            <span class="d-block mt-2 text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="btn-box mt-5">
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-warning text-light">
                         <i class="fa-solid fa-rotate-left"></i>

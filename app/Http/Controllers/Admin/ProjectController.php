@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProjectRequest;
 
 //Models
 use App\Models\Project;
+use App\Models\Type;
 
 // Helpers
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', [
+            'types'=>$types
+        ]);
     }
 
     /**
@@ -77,8 +81,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $types = Type::all();
         return view('admin.projects.edit', [
             'project'=> $project,
+            'types'=> $types
         ]);
     }
 

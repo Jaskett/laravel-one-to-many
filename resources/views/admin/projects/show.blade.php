@@ -41,6 +41,11 @@
                 <h2>{{ $project->title }}</h2>
                 <p>{{ $project->link }}</p>
                 <p>{{ $project->description }}</p>
+
+                @if ($project->$type)
+                    <strong>Type:</strong>
+                    <a href="{{ route('admin.types.show', $project->type->id)}}">{{ $project->type->name }}</a>
+                @endif
             </div>
         </div>
     </div>
